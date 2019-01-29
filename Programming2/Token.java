@@ -1,3 +1,5 @@
+package Programming2;
+
 // Author: Daniel Barbaro
 // Tokens are either variables or operators in an expression
 public interface Token {

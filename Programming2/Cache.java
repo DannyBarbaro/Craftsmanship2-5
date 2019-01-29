@@ -1,9 +1,11 @@
+package Programming2;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-//Author: Daniel Barbaro
-//This class acts as a cache for the package
+// Author: Daniel Barbaro
+// This class acts as a cache for the package
 public final class Cache<T, V> {
 
     private Map<T, V> cache = new HashMap<>();

@@ -1,3 +1,5 @@
+package Programming2;
+
 // Author: Daniel Barbaro
 // Connectors the operators that are used on variables
 public final class Connector extends AbstractToken {

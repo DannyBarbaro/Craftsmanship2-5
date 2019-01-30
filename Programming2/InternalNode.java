@@ -1,14 +1,15 @@
 package Programming2;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public final class InternalNode implements Node {
 
     private final List<Node> children;
 
-    private final List<Token> childConcat;
+    private List<Token> subTreeList;
+
+    private String subTreeString;
 
     public List<Node> getChildren() {
         return new ArrayList<>(this.children);
@@ -29,18 +30,28 @@ public final class InternalNode implements Node {
 
     @Override
     public List<Token> toList() {
-        if(childConcat == null) {
-            List<Token> list = new LinkedList<>();
-            for (Node child : children) {
-                list.addAll(child.toList());
-            }
-            childConcat = list;
+        if (subTreeList != null) {
+            return new ArrayList<>(subTreeList);
         }
-        return new ArrayList<>(childConcat);
+        else {
+            subTreeList = new ArrayList<>();
+            for (Node child : children) {
+                subTreeList.addAll(child.toList());
+            }
+            return new ArrayList<>(subTreeList);
+        }
     }
 
     @Override
     public String toString() {
-        return super.toString();
+        if (subTreeString != null) {
+            return subTreeString;
+        }
+        else {
+            for (Node child : children) {
+                subTreeString += child.toString();
+            }
+            return subTreeString;
+        }
     }
 }

@@ -32,4 +32,9 @@ public final class LeafNode implements Node {
         list.add(token);
         return list;
     }
+
+    @Override
+    public String toString() {
+        return token.toString();
+    }
 }

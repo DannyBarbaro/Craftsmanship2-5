@@ -48,9 +48,12 @@ public final class InternalNode implements Node {
             return subTreeString;
         }
         else {
+            subTreeString += "[";
             for (Node child : children) {
                 subTreeString += child.toString();
+                subTreeString += ",";
             }
+            subTreeString += "]";
             return subTreeString;
         }
     }

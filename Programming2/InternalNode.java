@@ -19,7 +19,7 @@ public final class InternalNode implements Node {
         this.children = new ArrayList<>(children);
     }
 
-    public InternalNode build(List<Node> children) throws NullPointerException {
+    public static InternalNode build(List<Node> children) throws NullPointerException {
         if (children != null) {
             return new InternalNode(children);
         }
@@ -48,7 +48,7 @@ public final class InternalNode implements Node {
             return subTreeString;
         }
         else {
-            subTreeString += "[";
+            subTreeString = "[";
             for (Node child : children) {
                 subTreeString += child.toString();
                 subTreeString += ",";

@@ -17,7 +17,7 @@ public final class LeafNode implements Node {
         this.token = token;
     }
 
-    public LeafNode build(Token token) throws NullPointerException {
+    public static LeafNode build(Token token) throws NullPointerException {
         if (token != null) {
             return new LeafNode(token);
         }

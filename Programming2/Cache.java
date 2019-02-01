@@ -2,6 +2,7 @@ package Programming2;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 
 // Author: Daniel Barbaro
@@ -10,17 +11,11 @@ public final class Cache<T, V> {
 
     private Map<T, V> cache = new HashMap<>();
 
-    public V get(T key, Function<? super T, ? extends V> constructor) throws NullPointerException {
-        if (key == null) {
-            throw new NullPointerException("Cannot process a null key value");
-        } else if (cache.get(key) != null) {
-            return cache.get(key);
-        } else if (constructor == null) {
-            throw new NullPointerException("Cannot create new cache item with a null constructor");
+    public V get(T key, Function<? super T, ? extends V> constructor) {
+        if(!Objects.isNull(key) && !Objects.isNull(constructor)) {
+            return cache.computeIfAbsent(key, constructor);
         } else {
-            V value = constructor.apply(key);
-            cache.put(key, value);
-            return value;
+            throw new NullPointerException("Cannot process a null key or constructor");
         }
     }
 }

@@ -17,12 +17,12 @@ public final class LeafNode implements Node {
         this.token = token;
     }
 
-    public static LeafNode build(Token token) throws NullPointerException {
+    public static LeafNode build(Token token) {
         if (token != null) {
             return new LeafNode(token);
         }
         else {
-            throw new NullPointerException();
+            throw new NullPointerException("Cannot build with null token");
         }
     }
 

@@ -19,12 +19,12 @@ public final class InternalNode implements Node {
         this.children = new ArrayList<>(children);
     }
 
-    public static InternalNode build(List<Node> children) throws NullPointerException {
+    public static InternalNode build(List<Node> children) {
         if (children != null) {
             return new InternalNode(children);
         }
         else {
-            throw new NullPointerException();
+            throw new NullPointerException("Cannot build with null children");
         }
     }
 

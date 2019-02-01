@@ -24,7 +24,7 @@ public final class Variable extends AbstractToken {
         return representation;
     }
 
-    public static final Variable build(String representation) throws Exception {
-        return cache.get(representation, (r) -> new Variable(r));
+    public static final Variable build(String representation) {
+        return cache.get(representation, Variable::new);
     }
 }

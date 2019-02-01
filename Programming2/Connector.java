@@ -1,11 +1,21 @@
 package Programming2;
 
+import java.util.HashMap;
 // Author: Daniel Barbaro
 // Connectors the operators that are used on variables
 public final class Connector extends AbstractToken {
 
     private final TerminalSymbol type;
     private static Cache<TerminalSymbol, Connector> cache = new Cache<>();
+
+    private static final HashMap<TerminalSymbol, String> connectorMap = new HashMap<TerminalSymbol, String>() {{
+        put(TerminalSymbol.PLUS, "+");
+        put(TerminalSymbol.MINUS, "-");
+        put(TerminalSymbol.TIMES, "*");
+        put(TerminalSymbol.DIVIDE, "/");
+        put(TerminalSymbol.OPEN, "(");
+        put(TerminalSymbol.CLOSE, ")");
+    }};
 
     private Connector(TerminalSymbol type) {
         this.type = type;
@@ -17,28 +27,12 @@ public final class Connector extends AbstractToken {
 
     @Override
     public String toString() {
-        switch (this.type) {
-        case PLUS:
-            return "+";
-        case MINUS:
-            return "-";
-        case TIMES:
-            return "*";
-        case DIVIDE:
-            return "/";
-        case OPEN:
-            return "(";
-        case CLOSE:
-            return ")";
-        default:
-            return "unknown type";
-        }
+        return connectorMap.get(this.getType());
     }
 
-    public static final Connector build(TerminalSymbol type) throws Exception {
-        if (type == TerminalSymbol.PLUS || type == TerminalSymbol.MINUS || type == TerminalSymbol.TIMES
-                || type == TerminalSymbol.DIVIDE || type == TerminalSymbol.OPEN || type == TerminalSymbol.CLOSE) {
-            return cache.get(type, (t) -> new Connector(t));
+    public static final Connector build(TerminalSymbol type) {
+        if (connectorMap.keySet().contains(type)) {
+            return cache.get(type, Connector::new);
         } else {
             throw new IllegalArgumentException("The given type is not accepted as a connector");
         }

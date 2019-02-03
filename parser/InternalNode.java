@@ -1,7 +1,9 @@
-package Programming2;
+package parser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
+import java.util.StringJoiner;
 
 public final class InternalNode implements Node {
 
@@ -16,7 +18,7 @@ public final class InternalNode implements Node {
     }
 
     private InternalNode(List<Node> children) {
-        this.children = new ArrayList<>(children);
+        this.children = Collections.unmodifiableList(children);
     }
 
     public static InternalNode build(List<Node> children) {
@@ -48,12 +50,11 @@ public final class InternalNode implements Node {
             return subTreeString;
         }
         else {
-            subTreeString = "[";
+            StringJoiner joiner = new StringJoiner(",", "[", "]");
             for (Node child : children) {
-                subTreeString += child.toString();
-                subTreeString += ",";
+                joiner.add(child.toString());
             }
-            subTreeString += "]";
+            subTreeString = joiner.toString();
             return subTreeString;
         }
     }

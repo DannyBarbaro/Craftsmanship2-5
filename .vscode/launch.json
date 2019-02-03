@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - InternalNode",
+            "request": "launch",
+            "mainClass": "parser.InternalNode",
+            "projectName": "Spring 2019_Craftsmanship2-5"
+        }
+    ]
+}

@@ -1,4 +1,4 @@
-package Programming2;
+package parser;
 
 // Author: Daniel Barbaro
 // An enumeration of the terminal symbol types

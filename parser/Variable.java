@@ -1,4 +1,4 @@
-package Programming2;
+package parser;
 
 // Author: Daniel Barbaro
 // Variables represent objects that operators are used on

@@ -1,4 +1,4 @@
-package Programming2;
+package parser;
 
 import java.util.HashMap;
 // Author: Daniel Barbaro
@@ -8,7 +8,7 @@ public final class Connector extends AbstractToken {
     private final TerminalSymbol type;
     private static Cache<TerminalSymbol, Connector> cache = new Cache<>();
 
-    private static final HashMap<TerminalSymbol, String> connectorMap = new HashMap<TerminalSymbol, String>() {{
+    private static HashMap<TerminalSymbol, String> connectorMap = new HashMap<TerminalSymbol, String>() {{
         put(TerminalSymbol.PLUS, "+");
         put(TerminalSymbol.MINUS, "-");
         put(TerminalSymbol.TIMES, "*");

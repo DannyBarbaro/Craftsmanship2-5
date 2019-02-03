@@ -1,4 +1,4 @@
-package Programming2;
+package parser;
 
 import org.junit.Test;
 

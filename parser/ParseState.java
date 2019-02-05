@@ -18,7 +18,7 @@ public final class ParseState {
         this.remainder = remainder;
     }
 
-    public static ParseState build(boolean success, Node node, List<Token> remainder) {
+    public static final ParseState build(boolean success, Node node, List<Token> remainder) {
         if(!Objects.isNull(node) && !Objects.isNull(remainder)) {
             return new ParseState(success, node, remainder);
         } else {

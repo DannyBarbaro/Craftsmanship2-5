@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -15,15 +14,16 @@ public enum NonTerminalSymbol implements Symbol {
 
     private HashMap<NonTerminalSymbol, List<SymbolSequence>> nonTermsTable = new HashMap<NonTerminalSymbol, List<SymbolSequence>>() {
         {
-            nonTermsTable.put(EXPRESSION, Arrays.asList(SymbolSequence.build(TERM, EXPRESSION_TAIL)));
-            nonTermsTable.put(EXPRESSION_TAIL, Arrays.asList(SymbolSequence.build(PLUS, TERM, EXPRESSION_TAIL),
-                    SymbolSequence.build(MINUS, TERM, EXPRESSION_TAIL), SymbolSequence.EPSILON));
-            nonTermsTable.put(TERM, Arrays.asList(SymbolSequence.build(UNARY, TERM_TAIL)));
-            nonTermsTable.put(TERM_TAIL, Arrays.asList(SymbolSequence.build(TIMES, UNARY, TERM_TAIL),
-                    SymbolSequence.build(DIVIDE, UNARY, TERM_TAIL), SymbolSequence.EPSILON));
-            nonTermsTable.put(UNARY, Arrays.asList(SymbolSequence.build(MINUS, FACTOR), SymbolSequence.build(FACTOR)));
-            nonTermsTable.put(FACTOR,
-                    Arrays.asList(SymbolSequence.build(OPEN, EXPRESSION, CLOSE), SymbolSequence.build(VARIABLE)));
+            put(EXPRESSION, Arrays.asList(SymbolSequence.build(TERM, EXPRESSION_TAIL)));
+            put(EXPRESSION_TAIL, Arrays.asList(SymbolSequence.build(PLUS, TERM, EXPRESSION_TAIL),
+                    SymbolSequence.build(MINUS, TERM, EXPRESSION_TAIL),
+                    SymbolSequence.EPSILON));
+            put(TERM, Arrays.asList(SymbolSequence.build(UNARY, TERM_TAIL)));
+            put(TERM_TAIL, Arrays.asList(SymbolSequence.build(TIMES, UNARY, TERM_TAIL),
+                    SymbolSequence.build(DIVIDE, UNARY, TERM_TAIL),
+                    SymbolSequence.EPSILON));
+            put(UNARY, Arrays.asList(SymbolSequence.build(MINUS, FACTOR), SymbolSequence.build(FACTOR)));
+            put(FACTOR, Arrays.asList(SymbolSequence.build(OPEN, EXPRESSION, CLOSE), SymbolSequence.build(VARIABLE)));
         }
     };
 

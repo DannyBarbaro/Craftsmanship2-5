@@ -1,9 +1,6 @@
 package parser;
 
-import java.util.List;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Objects;
+import java.util.*;
 
 public final class SymbolSequence {
 
@@ -12,23 +9,17 @@ public final class SymbolSequence {
     static final SymbolSequence EPSILON = build();
 
     private SymbolSequence(List<Symbol> production) {
-        this.production = production;
+        this.production = Collections.unmodifiableList(production);
     }
 
     public static final SymbolSequence build(List<Symbol> production) {
-        if (!Objects.isNull(production)) {
-            return new SymbolSequence(production);
-        } else {
-            throw new NullPointerException("Cannot create a symbol sequence with null production");
-        }
+        Objects.requireNonNull(production, "Cannot create a symbol sequence with null production");
+        return new SymbolSequence(production);
     }
 
     public static final SymbolSequence build(Symbol... symbols) {
-        if (!Objects.isNull(symbols)) {
-            return new SymbolSequence(Arrays.asList(symbols));
-        } else {
-            throw new NullPointerException("Cannot create a symbol sequence with null production");
-        }
+        Objects.requireNonNull(symbols, "Cannot create a symbol sequence with null symbols");
+        return new SymbolSequence(Arrays.asList(symbols));
     }
 
     @Override
@@ -37,9 +28,7 @@ public final class SymbolSequence {
     }
 
     public ParseState match(List<Token> input) {
-        if (Objects.isNull(input)) {
-            throw new NullPointerException("Cannot match with a null input");
-        }
+        Objects.requireNonNull(input, "Cannot match with a null input");
         List<Token> remainder = input;
         List<Node> children = new LinkedList<>();
         for(Symbol symbol : production) {

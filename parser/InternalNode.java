@@ -1,9 +1,6 @@
 package parser;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Collections;
-import java.util.StringJoiner;
+import java.util.*;
 
 public final class InternalNode implements Node {
 
@@ -22,17 +19,13 @@ public final class InternalNode implements Node {
     }
 
     public static InternalNode build(List<Node> children) {
-        if (children != null) {
-            return new InternalNode(children);
-        }
-        else {
-            throw new NullPointerException("Cannot build with null children");
-        }
+        Objects.requireNonNull(children, "Cannot build with null children");
+        return new InternalNode(children);
     }
 
     @Override
     public List<Token> toList() {
-        if (subTreeList != null) {
+        if (Objects.nonNull(subTreeList)) {
             return new ArrayList<>(subTreeList);
         }
         else {
@@ -46,7 +39,7 @@ public final class InternalNode implements Node {
 
     @Override
     public String toString() {
-        if (subTreeString != null) {
+        if (Objects.nonNull(subTreeString)) {
             return subTreeString;
         }
         else {

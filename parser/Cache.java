@@ -12,10 +12,8 @@ public final class Cache<T, V> {
     private Map<T, V> cache = new HashMap<>();
 
     public V get(T key, Function<? super T, ? extends V> constructor) {
-        if(!Objects.isNull(key) && !Objects.isNull(constructor)) {
-            return cache.computeIfAbsent(key, constructor);
-        } else {
-            throw new NullPointerException("Cannot process a null key or constructor");
-        }
+        Objects.requireNonNull(key, "Cannot process a null key");
+        Objects.requireNonNull(constructor, "Cannot process a null constructor");
+        return cache.computeIfAbsent(key, constructor);
     }
 }

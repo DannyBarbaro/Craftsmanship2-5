@@ -1,5 +1,7 @@
 package parser;
 
+import java.util.Objects;
+
 // Author: Daniel Barbaro
 // Variables represent objects that operators are used on
 public final class Variable extends AbstractToken {
@@ -25,6 +27,7 @@ public final class Variable extends AbstractToken {
     }
 
     public static final Variable build(String representation) {
+        Objects.requireNonNull(representation, "Cannot build with a null representation");
         return cache.get(representation, Variable::new);
     }
 }

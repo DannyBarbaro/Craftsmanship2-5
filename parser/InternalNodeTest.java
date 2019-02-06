@@ -29,7 +29,7 @@ public class InternalNodeTest {
         list.add(lv);
         list.add(lc);
         InternalNode i = InternalNode.build(list);
-        assertEquals("[x,),]", i.toString());
+        assertEquals("[x,)]", i.toString());
     }
 
 }

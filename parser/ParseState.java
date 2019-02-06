@@ -19,11 +19,9 @@ public final class ParseState {
     }
 
     public static final ParseState build(boolean success, Node node, List<Token> remainder) {
-        if(!Objects.isNull(node) && !Objects.isNull(remainder)) {
-            return new ParseState(success, node, remainder);
-        } else {
-            throw new NullPointerException("Cannot create a parse state with null node or remainder");
-        }
+        Objects.requireNonNull(node, "Cannot create a parse state with null node");
+        Objects.requireNonNull(remainder, "Cannot create a parse state with null remainder");
+        return new ParseState(success, node, remainder);
     }
 
     public boolean getSuccess() {

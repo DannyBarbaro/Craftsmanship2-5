@@ -3,7 +3,9 @@ package parser;
 // Author: Jacob Rich
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public final class LeafNode implements Node {
 
@@ -18,23 +20,17 @@ public final class LeafNode implements Node {
     }
 
     public static LeafNode build(Token token) {
-        if (token != null) {
-            return new LeafNode(token);
-        }
-        else {
-            throw new NullPointerException("Cannot build with null token");
-        }
+        Objects.requireNonNull(token, "Cannot build with null token");
+        return new LeafNode(token);
     }
 
     @Override
     public List<Token> toList() {
-        List<Token> list = new ArrayList<>();
-        list.add(token);
-        return list;
+        return Collections.singletonList(this.token);
     }
 
     @Override
     public String toString() {
-        return token.toString();
+        return this.token.toString();
     }
 }

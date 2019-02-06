@@ -43,4 +43,11 @@ public final class SymbolSequence {
         return ParseState.build(true, InternalNode.build(children), remainder);
     }
 
+    public static void main(String[] args) {
+        List<Token> input = new LinkedList<>();
+        input.add(Variable.build("a"));
+        input.add(Connector.build(TerminalSymbol.MINUS));
+        input.add(Variable.build("b"));
+        NonTerminalSymbol.parseInput(input);
+    }
 }

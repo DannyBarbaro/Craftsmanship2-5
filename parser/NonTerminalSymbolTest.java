@@ -2,9 +2,9 @@ package parser;
 
 import org.junit.Test;
 
-import javax.lang.model.element.VariableElement;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -49,7 +49,7 @@ public class NonTerminalSymbolTest {
         tempChildren.add(level1a);
         tempChildren.add(level1b);
         InternalNode root = InternalNode.build(tempChildren);
-
-        assertEquals(root, NonTerminalSymbol.parseInput(input));
+        Optional<Node> r = NonTerminalSymbol.parseInput(input);
+        assertEquals(root, r);
     }
 }

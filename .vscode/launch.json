@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - SymbolSequence",
+            "request": "launch",
+            "mainClass": "parser.SymbolSequence",
+            "projectName": "Craftsmanship2-5"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - NonTerminalSymbol",
             "request": "launch",
             "mainClass": "parser.NonTerminalSymbol",

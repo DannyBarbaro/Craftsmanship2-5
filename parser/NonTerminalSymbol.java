@@ -40,7 +40,7 @@ public enum NonTerminalSymbol implements Symbol {
         for (Map.Entry<NonTerminalSymbol, List<SymbolSequence>> entry : nonTermsTable.entrySet()) {
             for (SymbolSequence sequence : entry.getValue()) {
                 if (!sequence.match(input).equals(ParseState.FAILURE)) {
-                    
+
                 }
             }
         }

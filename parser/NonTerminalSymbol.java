@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-
 import static parser.TerminalSymbol.*;
 
 public enum NonTerminalSymbol implements Symbol {
@@ -33,7 +32,6 @@ public enum NonTerminalSymbol implements Symbol {
     @Override
     public ParseState parse(List<Token> input) {
         Objects.requireNonNull(input, "Cannot match with a null input");
-        System.out.println("Trying to parse: " + this.toString() + " with " + input.toString());
         for (NonTerminalSymbol nonTerminal : nonTermsTable.keySet()) {
             Optional<ParseState> pState = nonTermsTable.get(nonTerminal).stream()
                 .map(ss -> ss.match(input))

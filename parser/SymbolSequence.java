@@ -32,7 +32,7 @@ public final class SymbolSequence {
         List<Token> remainder = input;
         List<Node> children = new LinkedList<>();
         for(Symbol symbol : production) {
-            ParseState pState = symbol.parse(input);
+            ParseState pState = symbol.parse(remainder);
             if (!pState.getSuccess()) {
                 return ParseState.FAILURE;
             } else {
@@ -40,14 +40,18 @@ public final class SymbolSequence {
                 remainder = pState.getRemainder();
             }
         }
-        return ParseState.build(true, InternalNode.build(children), remainder);
+        return ParseState.build(InternalNode.build(children), remainder);
     }
 
     public static void main(String[] args) {
         List<Token> input = new LinkedList<>();
         input.add(Variable.build("a"));
-        input.add(Connector.build(TerminalSymbol.MINUS));
+        input.add(Connector.build(TerminalSymbol.PLUS));
         input.add(Variable.build("b"));
-        NonTerminalSymbol.parseInput(input);
+        input.add(Connector.build(TerminalSymbol.DIVIDE));
+        input.add(Variable.build("c"));
+
+        Optional<Node> r = NonTerminalSymbol.parseInput(input);
+        System.out.print(r.get());
     }
 }

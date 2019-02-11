@@ -18,10 +18,10 @@ public final class ParseState {
         this.remainder = remainder;
     }
 
-    public static final ParseState build(boolean success, Node node, List<Token> remainder) {
+    public static final ParseState build(Node node, List<Token> remainder) {
         Objects.requireNonNull(node, "Cannot create a parse state with null node");
         Objects.requireNonNull(remainder, "Cannot create a parse state with null remainder");
-        return new ParseState(success, node, remainder);
+        return new ParseState(true, node, remainder);
     }
 
     public boolean getSuccess() {

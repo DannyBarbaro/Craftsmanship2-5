@@ -50,6 +50,7 @@ public class NonTerminalSymbolTest {
         tempChildren.add(level1b);
         InternalNode root = InternalNode.build(tempChildren);
         Optional<Node> r = NonTerminalSymbol.parseInput(input);
-        assertEquals(root, r);
+        System.out.print(r.get());
+        assertEquals(root, r.get());
     }
 }

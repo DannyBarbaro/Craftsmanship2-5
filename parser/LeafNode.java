@@ -1,7 +1,5 @@
 package parser;
 
-// Author: Jacob Rich
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -31,5 +29,13 @@ public final class LeafNode implements Node {
     @Override
     public String toString() {
         return this.token.toString();
+    }
+
+    public List<Node> getChildren() {
+        return null;
+    }
+
+    public boolean isFruitful() {
+        return true;
     }
 }

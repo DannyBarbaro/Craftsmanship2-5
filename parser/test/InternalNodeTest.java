@@ -1,7 +1,7 @@
-package parser;
+package parser.test;
 
 import org.junit.Test;
-
+import parser.*;
 import java.util.ArrayList;
 import java.util.List;
 

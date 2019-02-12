@@ -1,7 +1,7 @@
 package parser;
 
 import java.util.HashMap;
-// Author: Daniel Barbaro
+
 // Connectors the operators that are used on variables
 public final class Connector extends AbstractToken {
 
@@ -31,7 +31,7 @@ public final class Connector extends AbstractToken {
     }
 
     public static final Connector build(TerminalSymbol type) {
-        if (connectorMap.keySet().contains(type)) {
+        if (connectorMap.containsKey(type)) {
             return cache.get(type, Connector::new);
         } else {
             throw new IllegalArgumentException("The given type is not accepted as a connector");

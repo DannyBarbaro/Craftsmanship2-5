@@ -9,7 +9,7 @@ public final class SymbolSequence {
     static final SymbolSequence EPSILON = build();
 
     private SymbolSequence(List<Symbol> production) {
-        this.production = Collections.unmodifiableList(production);
+        this.production = Collections.unmodifiableList(new ArrayList<>(production));
     }
 
     public static final SymbolSequence build(List<Symbol> production) {
@@ -30,17 +30,17 @@ public final class SymbolSequence {
     public ParseState match(List<Token> input) {
         Objects.requireNonNull(input, "Cannot match with a null input");
         List<Token> remainder = input;
-        List<Node> children = new LinkedList<>();
+        InternalNode.Builder builder = new InternalNode.Builder();
         for(Symbol symbol : production) {
             ParseState pState = symbol.parse(remainder);
             if (!pState.getSuccess()) {
                 return ParseState.FAILURE;
             } else {
-                children.add(pState.getNode());
+                builder.addChild(pState.getNode());
                 remainder = pState.getRemainder();
             }
         }
-        return ParseState.build(InternalNode.build(children), remainder);
+        return ParseState.build(builder.simplify().build(), remainder);
     }
 
     public static void main(String[] args) {

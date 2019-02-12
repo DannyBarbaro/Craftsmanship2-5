@@ -1,6 +1,11 @@
 package parser;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Objects;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 public final class InternalNode implements Node {
 
@@ -12,6 +17,10 @@ public final class InternalNode implements Node {
 
     public List<Node> getChildren() {
         return new ArrayList<>(this.children);
+    }
+
+    public boolean isFruitful(){
+        return !this.children.isEmpty();
     }
 
     private InternalNode(List<Node> children) {
@@ -49,6 +58,31 @@ public final class InternalNode implements Node {
             }
             subTreeString = joiner.toString();
             return subTreeString;
+        }
+    }
+
+    public static class Builder {
+        private List<Node> children = new ArrayList<>();
+
+        public Builder() {
+             this.children = new ArrayList<>();;
+        }
+        public boolean addChild(Node node) {
+            return this.children.add(node);
+        }
+
+        // TODO: fix simplify
+        public Builder simplify() {
+            children = children.stream().filter(child -> child.isFruitful()).collect(Collectors.toList());
+            if(children.size() == 1) {
+                //System.out.println(children.get(0));
+                //children = children.get(0).getChildren();
+            }
+            return this;
+        }
+
+        public InternalNode build() {
+            return InternalNode.build(this.children);
         }
     }
 }

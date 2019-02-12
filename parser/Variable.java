@@ -2,7 +2,6 @@ package parser;
 
 import java.util.Objects;
 
-// Author: Daniel Barbaro
 // Variables represent objects that operators are used on
 public final class Variable extends AbstractToken {
 

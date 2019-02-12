@@ -19,7 +19,7 @@ public final class InternalNode implements Node {
         return new ArrayList<>(this.children);
     }
 
-    public boolean isFruitful(){
+    public boolean isFruitful() {
         return !this.children.isEmpty();
     }
 
@@ -36,8 +36,7 @@ public final class InternalNode implements Node {
     public List<Token> toList() {
         if (Objects.nonNull(subTreeList)) {
             return new ArrayList<>(subTreeList);
-        }
-        else {
+        } else {
             subTreeList = new ArrayList<>();
             for (Node child : children) {
                 subTreeList.addAll(child.toList());
@@ -50,8 +49,7 @@ public final class InternalNode implements Node {
     public String toString() {
         if (Objects.nonNull(subTreeString)) {
             return subTreeString;
-        }
-        else {
+        } else {
             StringJoiner joiner = new StringJoiner(",", "[", "]");
             for (Node child : children) {
                 joiner.add(child.toString());
@@ -62,22 +60,19 @@ public final class InternalNode implements Node {
     }
 
     public static class Builder {
+
         private List<Node> children = new ArrayList<>();
 
-        public Builder() {
-             this.children = new ArrayList<>();;
-        }
         public boolean addChild(Node node) {
             return this.children.add(node);
         }
 
-        // TODO: fix simplify
         public Builder simplify() {
-            children = children.stream().filter(child -> child.isFruitful()).collect(Collectors.toList());
-            if(children.size() == 1) {
-                //System.out.println(children.get(0));
-                //children = children.get(0).getChildren();
-            }
+            //stream and filter fruitful, then either get the lone child or the child with multiple children
+            children = children.stream()
+                .filter(c -> c.isFruitful())
+                .map(c -> (Objects.nonNull(c.getChildren()) && c.getChildren().size() == 1) ? c.getChildren().get(0) : c)
+                .collect(Collectors.toList());
             return this;
         }
 

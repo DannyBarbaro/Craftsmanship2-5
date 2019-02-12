@@ -42,16 +42,4 @@ public final class SymbolSequence {
         }
         return ParseState.build(builder.simplify().build(), remainder);
     }
-
-    public static void main(String[] args) {
-        List<Token> input = new LinkedList<>();
-        input.add(Variable.build("a"));
-        input.add(Connector.build(TerminalSymbol.PLUS));
-        input.add(Variable.build("b"));
-        input.add(Connector.build(TerminalSymbol.DIVIDE));
-        input.add(Variable.build("c"));
-
-        Optional<Node> r = NonTerminalSymbol.parseInput(input);
-        System.out.print(r.get());
-    }
 }

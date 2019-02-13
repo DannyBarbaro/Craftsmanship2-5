@@ -71,9 +71,18 @@ public final class InternalNode implements Node {
             //stream and filter fruitful, then either get the lone child or the child with multiple children
             children = children.stream()
                 .filter(c -> c.isFruitful())
-                .map(c -> (Objects.nonNull(c.getChildren()) && c.getChildren().size() == 1) ? c.getChildren().get(0) : c)
+                .map(this::childMapper)
                 .collect(Collectors.toList());
             return this;
+        }
+
+        //helper method to eliminate the lone child list
+        private Node childMapper(Node child) {
+            if(Objects.nonNull(child.getChildren()) && child.getChildren().size() == 1) {
+                return child.getChildren().get(0);
+            } else {
+                return child;
+            }
         }
 
         public InternalNode build() {

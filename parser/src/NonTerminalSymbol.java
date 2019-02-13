@@ -17,7 +17,6 @@ public enum NonTerminalSymbol implements Symbol {
                 put(MINUS, SymbolSequence.build(TERM, EXPRESSION_TAIL));
                 put(OPEN, SymbolSequence.build(TERM, EXPRESSION_TAIL));
                 put(VARIABLE, SymbolSequence.build(TERM, EXPRESSION_TAIL));
-                put(null, SymbolSequence.EPSILON);
             }});
 
             put(EXPRESSION_TAIL, new HashMap<TerminalSymbol, SymbolSequence>() {{
@@ -31,7 +30,6 @@ public enum NonTerminalSymbol implements Symbol {
                 put(MINUS, SymbolSequence.build(UNARY, TERM_TAIL));
                 put(OPEN, SymbolSequence.build(UNARY, TERM_TAIL));
                 put(VARIABLE, SymbolSequence.build(UNARY, TERM_TAIL));
-                put(null, SymbolSequence.EPSILON);
             }});
 
             put(TERM_TAIL, new HashMap<TerminalSymbol, SymbolSequence>() {{
@@ -39,6 +37,7 @@ public enum NonTerminalSymbol implements Symbol {
                 put(DIVIDE, SymbolSequence.build(DIVIDE, UNARY, TERM_TAIL));
                 put(PLUS, SymbolSequence.EPSILON);
                 put(MINUS, SymbolSequence.EPSILON);
+                put(CLOSE, SymbolSequence.EPSILON);
                 put(null, SymbolSequence.EPSILON);
             }});
 
@@ -46,13 +45,11 @@ public enum NonTerminalSymbol implements Symbol {
                 put(MINUS, SymbolSequence.build(MINUS, FACTOR));
                 put(OPEN, SymbolSequence.build(FACTOR));
                 put(VARIABLE, SymbolSequence.build(FACTOR));
-                put(null, SymbolSequence.EPSILON);
             }});
 
             put(FACTOR, new HashMap<TerminalSymbol, SymbolSequence>() {{
                 put(OPEN, SymbolSequence.build(OPEN, EXPRESSION, CLOSE));
                 put(VARIABLE, SymbolSequence.build(VARIABLE));
-                put(null, SymbolSequence.EPSILON);
             }});
         }
     };
@@ -60,18 +57,9 @@ public enum NonTerminalSymbol implements Symbol {
     @Override
     public ParseState parse(List<Token> input) {
         Objects.requireNonNull(input, "Cannot match with a null input");
-        Optional<ParseState> pState;
-        if (input.isEmpty()) {
-            pState = Optional.of(productions.get(this).get(null).match(input));
-        }
-        else {
-            pState = Optional.of(productions.get(this).get(input.get(0).getType()).match(input));
-        }
-        if (pState.isPresent()) {
-            return pState.get();
-        }
-        // else no valid ParseState was found
-        return ParseState.FAILURE;
+        TerminalSymbol tSymbol = input.isEmpty() ? null : input.get(0).getType();
+        SymbolSequence sSequence = productions.get(this).get(tSymbol);
+        return Objects.isNull(sSequence) ? ParseState.FAILURE : sSequence.match(input);
     }
 
     public static final Optional<Node> parseInput(List<Token> input) {

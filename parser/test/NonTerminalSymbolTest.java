@@ -43,14 +43,9 @@ public class NonTerminalSymbolTest {
         LeafNode aNode = LeafNode.build(Variable.build("a"));
         tempChildren = new LinkedList<>();
         tempChildren.add(aNode);
-        InternalNode level1a = InternalNode.build(tempChildren);
-
-        tempChildren = new LinkedList<>();
-        tempChildren.add(level1a);
         tempChildren.add(level1b);
         InternalNode root = InternalNode.build(tempChildren);
         Optional<Node> r = NonTerminalSymbol.parseInput(input);
-        System.out.print(r.get());
-        assertEquals(root, r.get());
+        assertEquals(root.toString(), r.get().toString());
     }
 }

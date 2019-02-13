@@ -1,11 +1,10 @@
-package parser;
+package parser.src;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 
-// Author: Daniel Barbaro
 // This class acts as a cache for the package
 public final class Cache<T, V> {
 

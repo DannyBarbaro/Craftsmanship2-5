@@ -2,7 +2,7 @@ package parser.test;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import parser.*;
+import parser.src.*;
 
 public class LeafNodeTest {
 

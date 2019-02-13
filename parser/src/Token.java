@@ -1,4 +1,4 @@
-package parser;
+package parser.src;
 
 // Tokens are either variables or operators in an expression
 public interface Token {

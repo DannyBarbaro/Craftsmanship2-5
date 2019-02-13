@@ -1,4 +1,4 @@
-package parser;
+package parser.src;
 
 import java.util.Collections;
 import java.util.List;

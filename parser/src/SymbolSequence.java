@@ -1,6 +1,10 @@
-package parser;
+package parser.src;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 public final class SymbolSequence {
 
@@ -31,7 +35,7 @@ public final class SymbolSequence {
         Objects.requireNonNull(input, "Cannot match with a null input");
         List<Token> remainder = input;
         InternalNode.Builder builder = new InternalNode.Builder();
-        for(Symbol symbol : production) {
+        for (Symbol symbol : production) {
             ParseState pState = symbol.parse(remainder);
             if (!pState.getSuccess()) {
                 return ParseState.FAILURE;

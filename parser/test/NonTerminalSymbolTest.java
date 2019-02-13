@@ -1,7 +1,7 @@
 package parser.test;
 
 import org.junit.Test;
-import parser.*;
+import parser.src.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;

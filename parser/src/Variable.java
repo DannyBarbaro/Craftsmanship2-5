@@ -25,6 +25,11 @@ public final class Variable extends AbstractToken {
         return representation;
     }
 
+    @Override
+    public boolean isOperator() {
+        return false;
+    }
+
     public static final Variable build(String representation) {
         Objects.requireNonNull(representation, "Cannot build with a null representation");
         return cache.get(representation, Variable::new);

@@ -12,4 +12,10 @@ public interface Node {
 
     //returns true if this node is an internal node with a least a child or if this node is a leaf
     boolean isFruitful();
+
+    //eturns true if the nodeis a leaf corresponding to an operator, and false otherwise
+    boolean isOperator();
+    
+    //returns true if the node’s first child is an operator, and false otherwise
+    boolean isStartedByOperator();
 }

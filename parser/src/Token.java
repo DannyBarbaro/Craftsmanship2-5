@@ -7,4 +7,6 @@ public interface Token {
 
     // return whether the argument is equal to getType()
     boolean matches(TerminalSymbol type);
+
+    boolean isOperator();
 }

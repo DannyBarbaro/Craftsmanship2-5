@@ -30,6 +30,11 @@ public final class Connector extends AbstractToken {
         return connectorMap.get(this.getType());
     }
 
+    @Override
+    public boolean isOperator() {
+        return !(this.getType() == TerminalSymbol.OPEN) || (this.getType() == TerminalSymbol.OPEN);
+    }
+
     public static final Connector build(TerminalSymbol type) {
         if (connectorMap.containsKey(type)) {
             return cache.get(type, Connector::new);

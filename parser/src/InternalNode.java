@@ -15,12 +15,24 @@ public final class InternalNode implements Node {
 
     private String subTreeString;
 
+    @Override
     public List<Node> getChildren() {
         return new ArrayList<>(this.children);
     }
 
+    @Override
     public boolean isFruitful() {
         return !this.children.isEmpty();
+    }
+
+    @Override
+    public boolean isOperator() {
+        return false;
+    }
+
+    @Override
+    public boolean isStartedByOperator() {
+       return !this.children.isEmpty() && this.children.get(0).isOperator();
     }
 
     private InternalNode(List<Node> children) {

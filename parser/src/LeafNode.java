@@ -31,11 +31,23 @@ public final class LeafNode implements Node {
         return this.token.toString();
     }
 
+    @Override
     public List<Node> getChildren() {
         return null;
     }
 
+    @Override
     public boolean isFruitful() {
         return true;
+    }
+
+    @Override
+    public boolean isOperator() {
+        return this.getToken().isOperator();
+    }
+
+    @Override
+    public boolean isStartedByOperator() {
+        return false;
     }
 }

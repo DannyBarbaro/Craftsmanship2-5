@@ -1,6 +1,7 @@
 package parser.src;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface Node {
 
@@ -18,4 +19,10 @@ public interface Node {
     
     //returns true if the node’s first child is an operator, and false otherwise
     boolean isStartedByOperator();
+
+    //returns the first child of this node, or empty if the node is either a leaf or unfruitful
+    Optional<Node> firstChild();
+
+    //returns true if this node’s only child is a leaf, and false otherwise.
+    boolean isSingleLeafParent();
 }

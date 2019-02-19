@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
@@ -33,6 +34,16 @@ public final class InternalNode implements Node {
     @Override
     public boolean isStartedByOperator() {
        return !this.children.isEmpty() && this.children.get(0).isOperator();
+    }
+
+    @Override
+    public Optional<Node> firstChild() {
+        return this.isFruitful() ? Optional.of(this.children.get(0)) : Optional.empty();
+    }
+
+    @Override
+    public boolean isSingleLeafParent() {
+        return this.children.size() == 1 && (this.children.get(0) instanceof LeafNode);
     }
 
     private InternalNode(List<Node> children) {

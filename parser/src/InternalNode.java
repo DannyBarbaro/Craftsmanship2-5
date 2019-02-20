@@ -107,17 +107,32 @@ public final class InternalNode implements Node {
             return b;
         }
 
-        //helper method to eliminate the lone children list and the single grandchild leaves
+        //helper method to make appropriate simplifications to children
         private void childBuilder(Node child, Builder b) {
-            if(Objects.nonNull(child.getChildren()) && isSizeOne(child.getChildren())) {
+            boolean childReplaced = replaceIfNeeded(child, b.children);
+            if (Objects.nonNull(child.getChildren()) && isSizeOne(child.getChildren())) {
                 if(child.getChildren().get(0).isSingleLeafParent()) {
                     b.addChild(child.getChildren().get(0).firstChild().get());
                 } else {
                     b.children.addAll(child.getChildren());
                 }
-            } else {
+            } else if (!childReplaced){
                 b.addChild(child);
             }
+        }
+
+        private boolean replaceIfNeeded(Node candidate, List<Node> layerAbove) {
+            if (needsReplacing(candidate, layerAbove)) {
+                layerAbove.addAll(candidate.getChildren());
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        private boolean needsReplacing(Node candidate, List<Node> layerAbove) {
+            return !layerAbove.isEmpty() && !layerAbove.get(0).isOperator() && candidate.isStartedByOperator();
         }
 
         public InternalNode build() {

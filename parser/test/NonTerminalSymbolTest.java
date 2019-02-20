@@ -46,6 +46,7 @@ public class NonTerminalSymbolTest {
         tempChildren.add(level1b);
         InternalNode root = InternalNode.build(tempChildren);
         Optional<Node> r = NonTerminalSymbol.parseInput(input);
+        System.out.println(r.get().toString());
         assertEquals(root.toString(), r.get().toString());
     }
 }

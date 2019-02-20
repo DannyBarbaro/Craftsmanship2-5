@@ -2,12 +2,12 @@ package parser.src;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public final class InternalNode implements Node {
 
@@ -16,6 +16,15 @@ public final class InternalNode implements Node {
     private List<Token> subTreeList;
 
     private String subTreeString;
+
+    private InternalNode(List<Node> children) {
+        this.children = Collections.unmodifiableList(children);
+    }
+
+    public static InternalNode build(List<Node> children) {
+        Objects.requireNonNull(children, "Cannot build with null children");
+        return new InternalNode(children);
+    }
 
     @Override
     public List<Node> getChildren() {
@@ -45,15 +54,6 @@ public final class InternalNode implements Node {
     @Override
     public boolean isSingleLeafParent() {
         return this.children.size() == 1 && (this.children.get(0) instanceof LeafNode);
-    }
-
-    private InternalNode(List<Node> children) {
-        this.children = Collections.unmodifiableList(children);
-    }
-
-    public static InternalNode build(List<Node> children) {
-        Objects.requireNonNull(children, "Cannot build with null children");
-        return new InternalNode(children);
     }
 
     @Override
@@ -111,13 +111,17 @@ public final class InternalNode implements Node {
         private void childBuilder(Node child, Builder b) {
             boolean childReplaced = replaceIfNeeded(child, b.children);
             if (Objects.nonNull(child.getChildren()) && isSizeOne(child.getChildren())) {
-                if(child.getChildren().get(0).isSingleLeafParent()) {
-                    b.addChild(child.getChildren().get(0).firstChild().get());
-                } else {
-                    b.children.addAll(child.getChildren());
-                }
+                b.children.addAll(replaceGrandchildLeaf(child));
             } else if (!childReplaced){
                 b.addChild(child);
+            }
+        }
+
+        private List<Node> replaceGrandchildLeaf(Node child) {
+            if(child.getChildren().get(0).isSingleLeafParent()) {
+                return new ArrayList<>(Arrays.asList(child.getChildren().get(0).firstChild().get()));
+            } else {
+                return child.getChildren();
             }
         }
 

@@ -21,30 +21,23 @@ public class NonTerminalSymbolTest {
 
         List<Node> tempChildren;
 
+        LeafNode bNode = LeafNode.build(Variable.build("b"));
         LeafNode divNode = LeafNode.build(Connector.build(TerminalSymbol.DIVIDE));
         LeafNode cNode = LeafNode.build(Variable.build("c"));
         tempChildren = new LinkedList<>();
+        tempChildren.add(bNode);
         tempChildren.add(divNode);
         tempChildren.add(cNode);
-        InternalNode level3 = InternalNode.build(tempChildren);
-
-        LeafNode bNode = LeafNode.build(Variable.build("b"));
-        tempChildren = new LinkedList<>();
-        tempChildren.add(bNode);
-        tempChildren.add(level3);
-        InternalNode level2 = InternalNode.build(tempChildren);
-
-        LeafNode plusNode = LeafNode.build(Connector.build(TerminalSymbol.PLUS));
-        tempChildren = new LinkedList<>();
-        tempChildren.add(plusNode);
-        tempChildren.add(level2);
-        InternalNode level1b = InternalNode.build(tempChildren);
+        InternalNode level1 = InternalNode.build(tempChildren);
 
         LeafNode aNode = LeafNode.build(Variable.build("a"));
+        LeafNode plusNode = LeafNode.build(Connector.build(TerminalSymbol.PLUS));
         tempChildren = new LinkedList<>();
         tempChildren.add(aNode);
-        tempChildren.add(level1b);
+        tempChildren.add(plusNode);
+        tempChildren.add(level1);
         InternalNode root = InternalNode.build(tempChildren);
+
         Optional<Node> r = NonTerminalSymbol.parseInput(input);
         System.out.println(r.get().toString());
         assertEquals(root.toString(), r.get().toString());

@@ -91,22 +91,30 @@ public final class InternalNode implements Node {
             return this.children.add(node);
         }
 
+        private boolean isSizeOne(List<Node> list) {
+            return list.size() == 1;
+        }
+
         public Builder simplify() {
             Builder b = new Builder();
             List<Node> filteredChildren = this.children.stream()
                 .filter(c -> c.isFruitful())    // get the fruitful nodes
                 .collect(Collectors.toList());  // generate a list
-            if(filteredChildren.size() == 1 && filteredChildren.get(0) instanceof InternalNode) {
+            if(isSizeOne(filteredChildren) && filteredChildren.get(0) instanceof InternalNode) {
                 filteredChildren = filteredChildren.get(0).getChildren();
             }
-            filteredChildren.forEach(c -> childMapper(c, b));
+            filteredChildren.forEach(child -> childBuilder(child, b));
             return b;
-            }
+        }
 
-        //helper method to eliminate the lone child list
-        private void childMapper(Node child, Builder b) {
-            if(Objects.nonNull(child.getChildren()) && child.getChildren().size() == 1) {
-                b.children.addAll(child.getChildren());
+        //helper method to eliminate the lone children list and the single grandchild leaves
+        private void childBuilder(Node child, Builder b) {
+            if(Objects.nonNull(child.getChildren()) && isSizeOne(child.getChildren())) {
+                if(child.getChildren().get(0).isSingleLeafParent()) {
+                    b.addChild(child.getChildren().get(0).firstChild().get());
+                } else {
+                    b.children.addAll(child.getChildren());
+                }
             } else {
                 b.addChild(child);
             }

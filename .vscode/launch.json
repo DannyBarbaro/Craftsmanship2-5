@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - InternalNode$Builder",
+            "request": "launch",
+            "mainClass": "parser.src.InternalNode$Builder",
+            "projectName": "Craftsmanship2-5"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - SymbolSequence",
             "request": "launch",
             "mainClass": "parser.src.SymbolSequence",

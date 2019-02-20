@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class InternalNode implements Node {
 
@@ -91,20 +92,23 @@ public final class InternalNode implements Node {
         }
 
         public Builder simplify() {
-            //stream and filter fruitful, then either get the lone child or the child with multiple children
-            children = children.stream()
-                .filter(c -> c.isFruitful())
-                .map(this::childMapper)
-                .collect(Collectors.toList());
-            return this;
-        }
+            Builder b = new Builder();
+            List<Node> filteredChildren = this.children.stream()
+                .filter(c -> c.isFruitful())    // get the fruitful nodes
+                .collect(Collectors.toList());  // generate a list
+            if(filteredChildren.size() == 1 && filteredChildren.get(0) instanceof InternalNode) {
+                filteredChildren = filteredChildren.get(0).getChildren();
+            }
+            filteredChildren.forEach(c -> childMapper(c, b));
+            return b;
+            }
 
         //helper method to eliminate the lone child list
-        private Node childMapper(Node child) {
+        private void childMapper(Node child, Builder b) {
             if(Objects.nonNull(child.getChildren()) && child.getChildren().size() == 1) {
-                return child.getChildren().get(0);
+                b.children.addAll(child.getChildren());
             } else {
-                return child;
+                b.addChild(child);
             }
         }
 
